@@ -21,10 +21,12 @@ function onFormData (event) {
 }
 
 function onSubmitForm (event) {
-    console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
     event.preventDefault();
-    event.currentTarget.reset();
-    localStorage.removeItem('feedback-form-state');
+    if (email.value && message.value) {
+        console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
+        event.currentTarget.reset();
+        localStorage.removeItem('feedback-form-state');
+    }
 }
 
 (function dataFromLocalStorage() {
