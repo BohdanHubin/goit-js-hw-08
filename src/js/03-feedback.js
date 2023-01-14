@@ -5,22 +5,14 @@ const email = document.querySelector('[name="email"]');
 const message = document.querySelector('[name="message"]');
 
 form.addEventListener('input', throttle(onFormData, 500));
-form.addEventListener('submit', onSubmitForm);
+form.addEventListener('submit', submitForm);
 
-
-
-const formData = {
-    email: '',
-    message: '',};
-
-
-
-function onFormData (event) {
-    formData[event.target.name] = event.target.value;
+function onFormData () {
+   const formData = { email: email.value, message: message.value };
     localStorage.setItem('feedback-form-state', JSON.stringify(formData));
 }
 
-function onSubmitForm (event) {
+function submitForm (event) {
     event.preventDefault();
     if (email.value && message.value) {
         console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
@@ -29,11 +21,11 @@ function onSubmitForm (event) {
     }
 }
 
-(function dataFromLocalStorage() {
+(function dataLocalStorage() {
   const data = JSON.parse(localStorage.getItem('feedback-form-state'));
   if (data) {
-    email.value = data.email;
-    message.value = data.message;
+    data.email ? (email.value = data.email) : {};
+    data.message ? (message.value = data.message) : {};
   }
 })();
 
